@@ -27,20 +27,30 @@ namespace _3_hodina_darek
 
         public MainWindow()
         {
-
+            casovac.Tick += Casovac_Tick;
             casovac.Interval = new TimeSpan(0, 0, 0, 1);
-
+            
             InitializeComponent();
+        }
+
+        private void Casovac_Tick(object sender, EventArgs e)
+        {
+            Random nahoda = new Random();
+            darek.Margin = new Thickness(nahoda.Next(0, (int)plocha.ActualWidth - (int)darek.Width), nahoda.Next(0, (int)plocha.ActualHeight - (int)darek.Height), 0, 0);
+            darek.Visibility = Visibility.Visible;
         }
 
         private void strom_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
+            darek.Visibility = Visibility.Visible;
+            casovac.Start();
         }
 
         private void darek_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
+            score++;
+            skore.Content = score;
+            darek.Visibility = Visibility.Hidden;
         }
     }
 }
